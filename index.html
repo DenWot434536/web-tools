@@ -1,323 +1,801 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>ToolBox — Бесплатные онлайн-инструменты</title>
-
-    <meta name="description"
-          content="ToolBox — бесплатные онлайн-инструменты для работы с текстом, изображениями и вычислениями.">
-
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бесплатные онлайн-инструменты — ToolBox</title>
+<meta name="description" content="ToolBox — бесплатные инструменты для текста, вычислений и разработчиков.">
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
 </head>
-
 <body>
 
 <header class="header">
-    <div class="container header-content">
-
-        <a href="index.html" class="logo">
-            <span>🧰</span> ToolBox
-        </a>
-
-        <div class="header-right">
-            <span class="header-label">Бесплатные инструменты</span>
-
-            <button
-                id="themeToggle"
-                class="theme-button"
-                aria-label="Переключить тему"
-                type="button"
-            >
-                🌙
-            </button>
-        </div>
-
-    </div>
+<div class="container header-content">
+<a href="index.html" class="logo">🧰 ToolBox</a>
+<button id="themeToggle" class="theme-button"
+type="button" aria-label="Переключить тему">🌙</button>
+</div>
 </header>
 
-<main>
+<main class="container">
 
     <section class="hero">
-        <div class="container">
+        <h1>🧰 Все инструменты в одном месте</h1>
+        <p>ToolBox — бесплатные онлайн-сервисы на каждый день</p>
 
-            <div class="badge">
-                ⚡ Быстро. Бесплатно. Удобно.
-            </div>
-
-            <h1>
-                Все нужные инструменты
-                <span>в одном месте</span>
-            </h1>
-
-            <p class="hero-description">
-                ToolBox — бесплатные онлайн-сервисы для работы,
-                учёбы и повседневных задач.
-                Без регистрации и лишних сложностей.
-            </p>
-
-            <div class="search-box">
-                <span>🔍</span>
-
-                <input
-                    type="search"
-                    id="searchInput"
-                    placeholder="Какой инструмент ищем?"
-                    aria-label="Поиск инструментов"
-                >
-            </div>
-
-            <div class="hero-stats">
-                <span>✅ Бесплатно</span>
-                <span>⚡ Быстрая работа</span>
-                <span>🔒 Без регистрации</span>
-            </div>
-
-        </div>
+        <input
+        class="search"
+        id="search"
+        type="search"
+        placeholder="🔍 Найти инструмент..."
+        aria-label="Поиск инструментов">
     </section>
 
-    <section class="tools-section" id="tools">
+    <div class="categories">
+        
+    <button class="category active" data-category="Все">
+    ✨ Все
+    </button>
+    
+        <button class="category"
+        data-category="Генераторы">
+        Генераторы
+        </button>
+        
+        <button class="category"
+        data-category="Калькуляторы">
+        Калькуляторы
+        </button>
+        
+        <button class="category"
+        data-category="Разработчикам">
+        Разработчикам
+        </button>
+        
+        <button class="category"
+        data-category="Текст">
+        Текст
+        </button>
+        
+    </div>
 
-        <div class="container">
-
-            <div class="section-heading">
-                <div>
-                    <h2>Наши инструменты</h2>
-                    <p>Выбирай нужный и приступай к работе</p>
-                </div>
-            </div>
-
-            <div class="categories">
-<button class="category" data-category="image">
-    🖼️ Изображения
+    
+<button class="category"
+data-category="Изображения">
+🖼️ Изображения
 </button>
-                <button class="category active" data-category="all">
-                    ✨ Все
-                </button>
 
-                <button class="category" data-category="text">
-                    📝 Текст
-                </button>
+<section class="grid">
+        
+        <article class="card"
+        data-category="Генераторы">
 
-                <button class="category" data-category="calculator">
-                    🧮 Калькуляторы
-                </button>
+        <div class="card-icon">🔐</div>
 
-                <button class="category" data-category="generator">
-                    🔐 Генераторы
-                </button>
+        <h2>Генератор паролей</h2>
 
-            </div>
+        <p>Создание случайных паролей.</p>
 
-            <div class="tools-grid"><article class="tool-card" data-category="image">
-
-    <div class="tool-icon purple">🔄</div>
-
-    <h3>Конвертер изображений</h3>
-
-    <p>
-        Преобразуйте JPG, PNG и WebP
-        в нужный формат бесплатно.
-    </p>
-
-    <a
-        href="tools/convert-image.html"
-        class="primary-button tool-link"
-    >
+        <a href="tools/password.html">
         Открыть инструмент →
-    </a>
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Текст">
+
+        <div class="card-icon">📝</div>
+
+        <h2>Счётчик символов</h2>
+
+        <p>Подсчёт символов и слов.</p>
+
+        <a href="tools/characters.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Калькуляторы">
+
+        <div class="card-icon">🧮</div>
+
+        <h2>Калькулятор процентов</h2>
+
+        <p>Вычисление процента от числа.</p>
+
+        <a href="tools/percent.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Калькуляторы">
+
+        <div class="card-icon">🏷️</div>
+
+        <h2>Калькулятор скидок</h2>
+
+        <p>Расчёт цены после скидки.</p>
+
+        <a href="tools/discount.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Текст">
+
+        <div class="card-icon">🔠</div>
+
+        <h2>Изменение регистра текста</h2>
+
+        <p>Преобразование текста в верхний и нижний регистр.</p>
+
+        <a href="tools/case.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Текст">
+
+        <div class="card-icon">📋</div>
+
+        <h2>Удаление дубликатов строк</h2>
+
+        <p>Удаление повторяющихся строк.</p>
+
+        <a href="tools/duplicates.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Текст">
+
+        <div class="card-icon">✍️</div>
+
+        <h2>Удаление лишних пробелов</h2>
+
+        <p>Очистка текста от лишних пробелов.</p>
+
+        <a href="tools/spaces.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Генераторы">
+
+        <div class="card-icon">🎲</div>
+
+        <h2>Генератор случайных чисел</h2>
+
+        <p>Генерация случайного числа в диапазоне.</p>
+
+        <a href="tools/random.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Калькуляторы">
+
+        <div class="card-icon">🎂</div>
+
+        <h2>Калькулятор возраста</h2>
+
+        <p>Вычисление возраста по дате рождения.</p>
+
+        <a href="tools/age.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Разработчикам">
+
+        <div class="card-icon">💻</div>
+
+        <h2>Форматирование JSON</h2>
+
+        <p>Проверка и форматирование JSON.</p>
+
+        <a href="tools/json.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Разработчикам">
+
+        <div class="card-icon">🔡</div>
+
+        <h2>Base64-кодирование</h2>
+
+        <p>Кодирование и декодирование текста Base64.</p>
+
+        <a href="tools/base64.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Разработчикам">
+
+        <div class="card-icon">🎨</div>
+
+        <h2>Конвертер HEX и RGB</h2>
+
+        <p>Преобразование цвета HEX в RGB.</p>
+
+        <a href="tools/colors.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Калькуляторы">
+
+        <div class="card-icon">💰</div>
+
+        <h2>Калькулятор НДС</h2>
+
+        <p>Расчёт НДС по выбранной ставке.</p>
+
+        <a href="tools/vat.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Текст">
+
+        <div class="card-icon">🔤</div>
+
+        <h2>Сортировка строк</h2>
+
+        <p>Сортировка строк по алфавиту.</p>
+
+        <a href="tools/sort-lines.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Текст">
+
+        <div class="card-icon">🔄</div>
+
+        <h2>Переворот текста</h2>
+
+        <p>Изменение порядка символов.</p>
+
+        <a href="tools/reverse-text.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Текст">
+
+        <div class="card-icon">🔎</div>
+
+        <h2>Поиск и замена</h2>
+
+        <p>Замена слов и фрагментов текста.</p>
+
+        <a href="tools/replace-text.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Генераторы">
+
+        <div class="card-icon">🆔</div>
+
+        <h2>Генератор UUID</h2>
+
+        <p>Создание случайных UUID версии 4.</p>
+
+        <a href="tools/uuid.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Разработчикам">
+
+        <div class="card-icon">🌐</div>
+
+        <h2>URL-кодирование</h2>
+
+        <p>Кодирование и декодирование URL-компонентов.</p>
+
+        <a href="tools/url.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Разработчикам">
+
+        <div class="card-icon">💻</div>
+
+        <h2>HTML-экранирование</h2>
+
+        <p>Преобразование специальных символов HTML.</p>
+
+        <a href="tools/html-escape.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+        <article class="card"
+        data-category="Генераторы">
+
+        <div class="card-icon">🔗</div>
+
+        <h2>Генератор UTM-ссылок</h2>
+
+        <p>Создание ссылок с UTM-метками.</p>
+
+        <a href="tools/utm.html">
+        Открыть инструмент →
+        </a>
+
+        </article>
+        
+
+    <article class="card" data-category="Изображения">
+
+        <div class="card-icon">🖼️</div>
+
+        <h2>Сжатие фотографий</h2>
+
+        <p>Уменьшение размера изображений.</p>
+
+        <a href="tools/compress-image.html">
+            Открыть инструмент →
+        </a>
+
+    </article>
+    
+    <article class="card" data-category="Изображения">
+
+        <div class="card-icon">🔄</div>
+
+        <h2>Конвертер изображений</h2>
+
+        <p>Преобразование JPG, PNG и WebP.</p>
+
+        <a href="tools/convert-image.html">
+            Открыть инструмент →
+        </a>
+
+    </article>
+        
+<article class="card" data-category="Текст">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Подсчёт строк</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/line-count.html">
+Открыть инструмент →
+</a>
 
 </article>
-<article class="tool-card" data-category="image">
 
-    <div class="tool-icon blue">🖼️</div>
+<article class="card" data-category="Текст">
 
-    <h3>Сжатие фото онлайн</h3>
+<div class="card-icon">🛠️</div>
 
-    <p>
-        Уменьшайте размер фотографий JPG, PNG и WebP.
-        Быстро и бесплатно.
-    </p>
+<h2>Переворот строк</h2>
 
-    <a href="tools/compress-image.html"
-       class="primary-button tool-link">
-        Открыть инструмент →
-    </a>
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/reverse-lines.html">
+Открыть инструмент →
+</a>
 
 </article>
-                <article class="tool-card" data-category="generator">
 
-                    <div class="tool-icon purple">🔐</div>
+<article class="card" data-category="Текст">
 
-                    <h3>Генератор паролей</h3>
+<div class="card-icon">🛠️</div>
 
-                    <p>
-                        Создавайте случайные пароли для защиты аккаунтов.
-                    </p>
+<h2>Очистка краёв строк</h2>
 
-                    <div class="tool-content">
+<p>Бесплатный онлайн-инструмент.</p>
 
-                        <label for="passwordLength">
-                            Длина пароля:
-                        </label>
+<a href="tools/trim-lines.html">
+Открыть инструмент →
+</a>
 
-                        <select id="passwordLength">
-                            <option value="12">12 символов</option>
-                            <option value="16" selected>16 символов</option>
-                            <option value="24">24 символа</option>
-                            <option value="32">32 символа</option>
-                        </select>
+</article>
 
-                        <button class="primary-button"
-                                id="generatePasswordButton">
-                            Создать пароль
-                        </button>
+<article class="card" data-category="Текст">
 
-                        <div class="result" id="passwordResult"
-                             aria-live="polite"></div>
+<div class="card-icon">🛠️</div>
 
-                    </div>
+<h2>Удаление пустых строк</h2>
 
-                </article>
+<p>Бесплатный онлайн-инструмент.</p>
 
-                <article class="tool-card" data-category="text">
+<a href="tools/remove-empty.html">
+Открыть инструмент →
+</a>
 
-                    <div class="tool-icon blue">📝</div>
+</article>
 
-                    <h3>Счётчик символов</h3>
+<article class="card" data-category="Текст">
 
-                    <p>
-                        Узнайте количество символов и слов в тексте.
-                    </p>
+<div class="card-icon">🛠️</div>
 
-                    <div class="tool-content">
+<h2>Нумерация строк</h2>
 
-                        <label for="textInput">
-                            Введите текст:
-                        </label>
+<p>Бесплатный онлайн-инструмент.</p>
 
-                        <textarea
-                            id="textInput"
-                            rows="4"
-                            placeholder="Начните печатать..."
-                        ></textarea>
+<a href="tools/number-lines.html">
+Открыть инструмент →
+</a>
 
-                        <div class="result" id="textResult"
-                             aria-live="polite">
-                            Символов: 0 | Слов: 0
-                        </div>
+</article>
 
-                    </div>
+<article class="card" data-category="Текст">
 
-                </article>
+<div class="card-icon">🛠️</div>
 
-                <article class="tool-card" data-category="calculator">
+<h2>Добавить начало строк</h2>
 
-                    <div class="tool-icon green">🧮</div>
+<p>Бесплатный онлайн-инструмент.</p>
 
-                    <h3>Калькулятор процентов</h3>
+<a href="tools/prefix-lines.html">
+Открыть инструмент →
+</a>
 
-                    <p>
-                        Быстро вычислите процент от любого числа.
-                    </p>
+</article>
 
-                    <div class="tool-content">
+<article class="card" data-category="Текст">
 
-                        <label for="numberInput">
-                            Число:
-                        </label>
+<div class="card-icon">🛠️</div>
 
-                        <input
-                            type="number"
-                            id="numberInput"
-                            placeholder="Например, 1000"
-                        >
+<h2>Добавить конец строк</h2>
 
-                        <label for="percentInput">
-                            Процент:
-                        </label>
+<p>Бесплатный онлайн-инструмент.</p>
 
-                        <input
-                            type="number"
-                            id="percentInput"
-                            placeholder="Например, 15"
-                        >
+<a href="tools/suffix-lines.html">
+Открыть инструмент →
+</a>
 
-                        <button class="primary-button"
-                                id="calculateButton">
-                            Рассчитать
-                        </button>
+</article>
 
-                        <div class="result" id="percentResult"
-                             aria-live="polite"></div>
+<article class="card" data-category="Текст">
 
-                    </div>
+<div class="card-icon">🛠️</div>
 
-                </article>
+<h2>Табуляция в пробелы</h2>
 
-            </div>
+<p>Бесплатный онлайн-инструмент.</p>
 
-            <p id="noResults" class="no-results" hidden>
-                😕 Инструменты не найдены. Попробуйте другой запрос.
-            </p>
+<a href="tools/tabs-spaces.html">
+Открыть инструмент →
+</a>
 
-        </div>
-    </section>
+</article>
 
-    <section class="about-section">
+<article class="card" data-category="Текст">
 
-        <div class="container">
+<div class="card-icon">🛠️</div>
 
-            <h2>Почему ToolBox?</h2>
+<h2>Частота слов</h2>
 
-            <div class="features">
+<p>Бесплатный онлайн-инструмент.</p>
 
-                <div class="feature">
-                    <span>⚡</span>
-                    <h3>Быстро</h3>
-                    <p>Инструменты работают прямо в браузере.</p>
-                </div>
+<a href="tools/word-frequency.html">
+Открыть инструмент →
+</a>
 
-                <div class="feature">
-                    <span>🔒</span>
-                    <h3>Конфиденциально</h3>
-                    <p>Введённые данные обрабатываются на вашем устройстве.</p>
-                </div>
+</article>
 
-                <div class="feature">
-                    <span>💎</span>
-                    <h3>Бесплатно</h3>
-                    <p>Пользуйтесь инструментами без оплаты.</p>
-                </div>
+<article class="card" data-category="Калькуляторы">
 
-            </div>
+<div class="card-icon">🛠️</div>
 
-        </div>
+<h2>Квадрат числа</h2>
 
-    </section>
+<p>Бесплатный онлайн-инструмент.</p>
 
+<a href="tools/square.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Калькуляторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Квадратный корень</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/sqrt.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Калькуляторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Возведение в степень</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/power.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Калькуляторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Среднее арифметическое</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/average.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Калькуляторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Медиана</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/median.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Калькуляторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Калькулятор ИМТ</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/bmi.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Калькуляторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Конвертер температуры</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/temperature.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Калькуляторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Километры в мили</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/km-miles.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Калькуляторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Мили в километры</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/miles-km.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Калькуляторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Процент изменения</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/percent-change.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Разработчикам">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Размер текста UTF-8</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/utf8-bytes.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Разработчикам">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Генератор SHA-256</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/sha256.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Разработчикам">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Двоичное в десятичное</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/binary-decimal.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Разработчикам">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Десятичное в двоичное</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/decimal-binary.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Разработчикам">
+
+<div class="card-icon">🛠️</div>
+
+<h2>HEX в десятичное</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/hex-decimal.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Разработчикам">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Unix Timestamp в дату</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/unix-date.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Генераторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Подбросить монетку</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/coin.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Генераторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Бросить кубик</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/dice.html">
+Открыть инструмент →
+</a>
+
+</article>
+
+<article class="card" data-category="Генераторы">
+
+<div class="card-icon">🛠️</div>
+
+<h2>Случайный выбор</h2>
+
+<p>Бесплатный онлайн-инструмент.</p>
+
+<a href="tools/random-choice.html">
+Открыть инструмент →
+</a>
+
+</article>
+</section>
+    
 </main>
 
 <footer class="footer">
-
-    <div class="container">
-
-        <div class="footer-content">
-            <div>
-                <strong>🧰 ToolBox</strong>
-                <p>Полезные инструменты на каждый день.</p>
-            </div>
-
-            <div>
-                © 2026 ToolBox
-            </div>
-        </div>
-
-    </div>
-
+<div class="container">
+© 2026 ToolBox — Бесплатные онлайн-инструменты
+</div>
 </footer>
 
 </body>

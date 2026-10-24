@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Двоичное в десятичное онлайн — ToolBox</title>
+
+<meta name="description"
+content="Двоичное в десятичное бесплатно онлайн. Инструмент ToolBox работает прямо в браузере.">
+
+<link rel="stylesheet" href="../style.css">
+<script src="../extra-tools.js" defer></script>
+</head>
+
+<body>
+
+<header class="header">
+<div class="container header-content">
+
+<a class="logo" href="../index.html">
+🧰 ToolBox
+</a>
+
+</div>
+</header>
+
+<main class="container">
+
+<section class="tool-page">
+
+<a href="../index.html">
+← Вернуться к инструментам
+</a>
+
+<h1>Двоичное в десятичное</h1>
+
+<p class="tool-description">
+Бесплатный онлайн-инструмент ToolBox.
+Обработка данных выполняется в браузере.
+</p>
+
+<div class="tool-box">
+
+<label for="inputA">Основные данные</label>
+
+<textarea id="inputA"
+placeholder="Введите текст или число"></textarea>
+
+<label for="inputB">Дополнительное значение</label>
+
+<input id="inputB"
+placeholder="Заполните, если требуется">
+
+<button type="button"
+onclick="toolboxRun('binary-decimal')">
+Выполнить
+</button>
+
+<h3>Результат:</h3>
+
+<pre id="result"
+class="result"
+aria-live="polite"></pre>
+
+<button type="button" id="copyResult">
+📋 Копировать результат
+</button>
+
+</div>
+
+<h2>Как пользоваться?</h2>
+
+<p class="tool-description">
+Введите исходные данные в первое поле.
+Если инструмент требует два значения,
+заполните также второе поле.
+Нажмите «Выполнить».
+Готовый результат появится ниже.
+</p>
+
+</section>
+
+</main>
+
+<footer class="footer">
+<div class="container">
+© 2026 ToolBox
+</div>
+</footer>
+
+<script>
+document.getElementById("copyResult").addEventListener(
+    "click",
+    async function() {
+        const text = document.getElementById("result").textContent;
+
+        if (!text) return;
+
+        try {
+            await navigator.clipboard.writeText(text);
+            this.textContent = "✅ Скопировано!";
+        } catch (error) {
+            alert("Не удалось скопировать результат");
+        }
+    }
+);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Генератор UTM-ссылок — ToolBox</title>
+<meta name="description" content="Создание ссылок с UTM-метками.">
+<link rel="stylesheet" href="../style.css">
+<script src="../script.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+<div class="container header-content">
+<a href="../index.html" class="logo">🧰 ToolBox</a>
+<button id="themeToggle" class="theme-button"
+type="button" aria-label="Переключить тему">🌙</button>
+</div>
+</header>
+
+<main class="container">
+
+        <section class="tool-page">
+
+        <p><a href="../index.html">← Все инструменты</a></p>
+
+        <h1>🔗 Генератор UTM-ссылок</h1>
+
+        <p class="tool-description">
+        Создание ссылок с UTM-метками.
+        </p>
+
+        <div class="tool-box">
+        
+<label for="utmUrl">Адрес сайта</label>
+<input id="utmUrl"
+placeholder="https://example.com">
+
+<label for="utmSource">Источник</label>
+<input id="utmSource"
+placeholder="telegram">
+
+<label for="utmMedium">Канал</label>
+<input id="utmMedium"
+placeholder="social">
+
+<label for="utmCampaign">Кампания</label>
+<input id="utmCampaign"
+placeholder="promo">
+
+<button onclick="toolUTM()">Создать ссылку</button>
+
+<div id="result" class="result"></div>
+
+        </div>
+
+        </section>
+        
+</main>
+
+<footer class="footer">
+<div class="container">
+© 2026 ToolBox — Бесплатные онлайн-инструменты
+</div>
+</footer>
+
+</body>
+</html>

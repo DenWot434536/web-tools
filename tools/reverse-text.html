@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Переворот текста — ToolBox</title>
+<meta name="description" content="Изменение порядка символов.">
+<link rel="stylesheet" href="../style.css">
+<script src="../script.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+<div class="container header-content">
+<a href="../index.html" class="logo">🧰 ToolBox</a>
+<button id="themeToggle" class="theme-button"
+type="button" aria-label="Переключить тему">🌙</button>
+</div>
+</header>
+
+<main class="container">
+
+        <section class="tool-page">
+
+        <p><a href="../index.html">← Все инструменты</a></p>
+
+        <h1>🔄 Переворот текста</h1>
+
+        <p class="tool-description">
+        Изменение порядка символов.
+        </p>
+
+        <div class="tool-box">
+        
+<textarea id="text"
+placeholder="Введите текст"></textarea>
+
+<button onclick="toolReverse()">Перевернуть</button>
+
+<div id="result" class="result"></div>
+
+        </div>
+
+        </section>
+        
+</main>
+
+<footer class="footer">
+<div class="container">
+© 2026 ToolBox — Бесплатные онлайн-инструменты
+</div>
+</footer>
+
+</body>
+</html>

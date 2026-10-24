@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Счётчик символов — ToolBox</title>
+<meta name="description" content="Подсчёт символов и слов.">
+<link rel="stylesheet" href="../style.css">
+<script src="../script.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+<div class="container header-content">
+<a href="../index.html" class="logo">🧰 ToolBox</a>
+<button id="themeToggle" class="theme-button"
+type="button" aria-label="Переключить тему">🌙</button>
+</div>
+</header>
+
+<main class="container">
+
+        <section class="tool-page">
+
+        <p><a href="../index.html">← Все инструменты</a></p>
+
+        <h1>📝 Счётчик символов</h1>
+
+        <p class="tool-description">
+        Подсчёт символов и слов.
+        </p>
+
+        <div class="tool-box">
+        
+<textarea id="text" placeholder="Введите текст"></textarea>
+<button onclick="toolCharacters()">Посчитать</button>
+<div id="result" class="result"></div>
+
+        </div>
+
+        </section>
+        
+</main>
+
+<footer class="footer">
+<div class="container">
+© 2026 ToolBox — Бесплатные онлайн-инструменты
+</div>
+</footer>
+
+</body>
+</html>

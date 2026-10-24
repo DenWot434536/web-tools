@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML-экранирование — ToolBox</title>
+<meta name="description" content="Преобразование специальных символов HTML.">
+<link rel="stylesheet" href="../style.css">
+<script src="../script.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+<div class="container header-content">
+<a href="../index.html" class="logo">🧰 ToolBox</a>
+<button id="themeToggle" class="theme-button"
+type="button" aria-label="Переключить тему">🌙</button>
+</div>
+</header>
+
+<main class="container">
+
+        <section class="tool-page">
+
+        <p><a href="../index.html">← Все инструменты</a></p>
+
+        <h1>💻 HTML-экранирование</h1>
+
+        <p class="tool-description">
+        Преобразование специальных символов HTML.
+        </p>
+
+        <div class="tool-box">
+        
+<textarea id="text"
+placeholder="Введите HTML или обычный текст"></textarea>
+
+<button onclick="toolHTMLEncode()">Экранировать</button>
+
+<button onclick="toolHTMLDecode()">Декодировать</button>
+
+<pre id="result" class="result"></pre>
+
+        </div>
+
+        </section>
+        
+</main>
+
+<footer class="footer">
+<div class="container">
+© 2026 ToolBox — Бесплатные онлайн-инструменты
+</div>
+</footer>
+
+</body>
+</html>

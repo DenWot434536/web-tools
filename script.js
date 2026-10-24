@@ -1,241 +1,480 @@
-// =====================================
-// TOOLBOX — ОСНОВНЫЕ ФУНКЦИИ
-// =====================================
-
-
-// 1. СВЕТЛАЯ И ТЁМНАЯ ТЕМЫ
 
 const themeToggle = document.getElementById("themeToggle");
 
-function updateThemeButton() {
-    const isDark = document.body.classList.contains("dark");
-
-    themeToggle.textContent = isDark ? "☀️" : "🌙";
-
-    themeToggle.setAttribute(
-        "aria-label",
-        isDark ? "Включить светлую тему" : "Включить тёмную тему"
-    );
-}
-
 try {
-    const savedTheme = localStorage.getItem("toolbox-theme");
-
-    if (savedTheme === "dark") {
+    if (localStorage.getItem("toolbox-theme") === "dark") {
         document.body.classList.add("dark");
     }
-} catch (error) {
-    console.log("Настройки темы недоступны");
+} catch (e) {}
+
+function updateTheme() {
+    if (!themeToggle) return;
+
+    const dark = document.body.classList.contains("dark");
+    themeToggle.textContent = dark ? "☀️" : "🌙";
 }
 
-updateThemeButton();
+updateTheme();
 
-themeToggle.addEventListener("click", function () {
+if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
 
-    document.body.classList.toggle("dark");
+        try {
+            localStorage.setItem(
+                "toolbox-theme",
+                document.body.classList.contains("dark")
+                    ? "dark"
+                    : "light"
+            );
+        } catch (e) {}
 
-    const theme = document.body.classList.contains("dark")
-        ? "dark"
-        : "light";
+        updateTheme();
+    });
+}
 
-    try {
-        localStorage.setItem("toolbox-theme", theme);
-    } catch (error) {
-        console.log("Не удалось сохранить тему");
-    }
+// Поиск и категории
 
-    updateThemeButton();
-});
+const search = document.getElementById("search");
+const cards = document.querySelectorAll(".card");
+const categories = document.querySelectorAll(".category");
 
-
-// =====================================
-// 2. ПОИСК И КАТЕГОРИИ
-// =====================================
-
-const searchInput = document.getElementById("searchInput");
-
-const cards = document.querySelectorAll(".tool-card");
-
-const categoryButtons = document.querySelectorAll(".category");
-
-const noResults = document.getElementById("noResults");
-
-let activeCategory = "all";
+let activeCategory = "Все";
 
 function filterTools() {
+    const query = search ? search.value.toLowerCase() : "";
 
-    const search = searchInput.value.toLowerCase().trim();
-
-    let visibleCount = 0;
-
-    cards.forEach(function (card) {
-
-        const text = (
-            card.querySelector("h3").textContent + " " +
-            card.querySelector("p").textContent
-        ).toLowerCase();
-
-        const category = card.dataset.category;
-
-        const matchesSearch = text.includes(search);
+    cards.forEach(card => {
+        const matchesText =
+            card.textContent.toLowerCase().includes(query);
 
         const matchesCategory =
-            activeCategory === "all" ||
-            category === activeCategory;
+            activeCategory === "Все" ||
+            card.dataset.category === activeCategory;
 
-        const shouldShow = matchesSearch && matchesCategory;
-
-        card.hidden = !shouldShow;
-
-        if (shouldShow) {
-            visibleCount++;
-        }
-
+        card.hidden = !(matchesText && matchesCategory);
     });
-
-    noResults.hidden = visibleCount !== 0;
 }
 
-searchInput.addEventListener("input", filterTools);
+if (search) {
+    search.addEventListener("input", filterTools);
+}
 
-categoryButtons.forEach(function (button) {
-
-    button.addEventListener("click", function () {
-
-        categoryButtons.forEach(function (btn) {
-            btn.classList.remove("active");
-        });
-
+categories.forEach(button => {
+    button.addEventListener("click", () => {
+        categories.forEach(b => b.classList.remove("active"));
         button.classList.add("active");
-
         activeCategory = button.dataset.category;
-
         filterTools();
-
     });
-
 });
 
+// Общие функции
 
-// =====================================
-// 3. ГЕНЕРАТОР ПАРОЛЕЙ
-// =====================================
+function val(id) {
+    return document.getElementById(id).value;
+}
 
-const generatePasswordButton =
-    document.getElementById("generatePasswordButton");
+function show(value) {
+    document.getElementById("result").textContent = String(value);
+}
 
-generatePasswordButton.addEventListener("click", function () {
+function numbers() {
+    const a = val("a");
+    const b = val("b");
 
-    const length = Number(
-        document.getElementById("passwordLength").value
-    );
+    if (a.trim() === "" || b.trim() === "") {
+        throw new Error("Заполните оба поля");
+    }
 
-    const chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-        "abcdefghijklmnopqrstuvwxyz" +
-        "0123456789" +
-        "!@#$%^&*";
+    const x = Number(a);
+    const y = Number(b);
 
-    let password = "";
+    if (!Number.isFinite(x) || !Number.isFinite(y)) {
+        throw new Error("Введите корректные числа");
+    }
 
-    // Используем криптографически стойкий генератор.
-    // Отбрасываем значения, создающие смещение распределения.
+    return [x, y];
+}
 
-    const randomBytes = new Uint8Array(length);
+function run(fn) {
+    try {
+        fn();
+    } catch (error) {
+        show("Ошибка: " + error.message);
+    }
+}
 
-    const limit = Math.floor(256 / chars.length) * chars.length;
+// Генератор паролей
 
-    while (password.length < length) {
+function toolPassword() {
+    run(() => {
+        const length = Number(val("length"));
 
-        crypto.getRandomValues(randomBytes);
+        if (!Number.isInteger(length) || length < 8 || length > 128) {
+            throw new Error("Длина должна быть от 8 до 128");
+        }
 
-        for (const value of randomBytes) {
+        const chars =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+            "abcdefghijklmnopqrstuvwxyz" +
+            "0123456789!@#$%^&*";
 
-            if (value >= limit) {
-                continue;
-            }
+        const bytes = new Uint8Array(length);
+        let password = "";
 
-            password += chars[value % chars.length];
+        const limit = Math.floor(256 / chars.length) * chars.length;
 
-            if (password.length === length) {
-                break;
+        while (password.length < length) {
+            crypto.getRandomValues(bytes);
+
+            for (const byte of bytes) {
+                if (byte >= limit) continue;
+
+                password += chars[byte % chars.length];
+
+                if (password.length === length) break;
             }
         }
-    }
 
-    document.getElementById("passwordResult").textContent =
-        password;
+        show(password);
+    });
+}
 
-});
+// Подсчёт символов
 
-
-// =====================================
-// 4. СЧЁТЧИК СИМВОЛОВ
-// =====================================
-
-const textInput = document.getElementById("textInput");
-
-textInput.addEventListener("input", function () {
-
-    const text = textInput.value;
+function toolCharacters() {
+    const text = val("text");
 
     const characters = [...text].length;
+    const words = text.trim()
+        ? text.trim().split(/\s+/u).length
+        : 0;
 
-    const words = text.trim() === ""
-        ? 0
-        : text.trim().split(/\s+/u).length;
+    show(`Символов: ${characters} | Слов: ${words}`);
+}
 
-    document.getElementById("textResult").textContent =
-        "Символов: " + characters +
-        " | Слов: " + words;
+// Проценты
 
-});
+function toolPercent() {
+    run(() => {
+        const [a, b] = numbers();
+        show((a * b / 100).toLocaleString("ru-RU"));
+    });
+}
+
+// Скидки
+
+function toolDiscount() {
+    run(() => {
+        const [a, b] = numbers();
+
+        if (a < 0 || b < 0 || b > 100) {
+            throw new Error("Проверьте цену и скидку");
+        }
+
+        show(
+            (a * (1 - b / 100)).toLocaleString("ru-RU") + " ₽"
+        );
+    });
+}
+
+// Регистр текста
+
+function toolUpper() {
+    show(val("text").toUpperCase());
+}
+
+function toolLower() {
+    show(val("text").toLowerCase());
+}
+
+// Удаление дубликатов
+
+function toolDuplicates() {
+    const lines = val("text").split(/\r?\n/);
+    show([...new Set(lines)].join("\n"));
+}
+
+// Лишние пробелы
+
+function toolSpaces() {
+    show(
+        val("text")
+            .replace(/[^\S\r\n]+/g, " ")
+            .replace(/ *\n */g, "\n")
+            .trim()
+    );
+}
+
+// Случайное число
+
+function toolRandom() {
+    run(() => {
+        const [min, max] = numbers();
+
+        if (!Number.isSafeInteger(min) ||
+            !Number.isSafeInteger(max) ||
+            min > max) {
+            throw new Error("Введите целые числа: минимум ≤ максимум");
+        }
+
+        const range = max - min + 1;
+
+        if (!Number.isSafeInteger(range) || range <= 0 ||
+            range > 4294967296) {
+            throw new Error("Диапазон слишком большой");
+        }
+
+        const maxUint = 4294967296;
+        const limit = Math.floor(maxUint / range) * range;
+        const buffer = new Uint32Array(1);
+
+        let value;
+
+        do {
+            crypto.getRandomValues(buffer);
+            value = buffer[0];
+        } while (value >= limit);
+
+        show(min + (value % range));
+    });
+}
+
+// Возраст
+
+function toolAge() {
+    run(() => {
+        const birth = val("birth");
+
+        if (!birth) {
+            throw new Error("Выберите дату рождения");
+        }
+
+        const parts = birth.split("-").map(Number);
+        const [year, month, day] = parts;
+
+        const date = new Date(year, month - 1, day);
+
+        if (date.getFullYear() !== year ||
+            date.getMonth() !== month - 1 ||
+            date.getDate() !== day) {
+            throw new Error("Некорректная дата");
+        }
+
+        const today = new Date();
+
+        if (date > today) {
+            throw new Error("Дата рождения в будущем");
+        }
+
+        let age = today.getFullYear() - year;
+
+        if (
+            today.getMonth() + 1 < month ||
+            (today.getMonth() + 1 === month &&
+             today.getDate() < day)
+        ) {
+            age--;
+        }
+
+        show("Возраст: " + age);
+    });
+}
+
+// JSON
+
+function toolJSON() {
+    run(() => {
+        const object = JSON.parse(val("text"));
+        show(JSON.stringify(object, null, 2));
+    });
+}
+
+// Base64 с поддержкой русского текста
+
+function toolBase64Encode() {
+    run(() => {
+        const bytes = new TextEncoder().encode(val("text"));
+        let binary = "";
+
+        for (const byte of bytes) {
+            binary += String.fromCharCode(byte);
+        }
+
+        show(btoa(binary));
+    });
+}
+
+function toolBase64Decode() {
+    run(() => {
+        const binary = atob(val("text").trim());
+
+        const bytes = Uint8Array.from(
+            binary,
+            char => char.charCodeAt(0)
+        );
+
+        show(
+            new TextDecoder("utf-8", {fatal: true}).decode(bytes)
+        );
+    });
+}
+
+// HEX → RGB
+
+function toolColor() {
+    const hex = val("color");
+
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+
+    show(`${hex.toUpperCase()} | RGB(${r}, ${g}, ${b})`);
+}
 
 
-// =====================================
-// 5. КАЛЬКУЛЯТОР ПРОЦЕНТОВ
-// =====================================
+// ==========================================
+// TOOLBOX 4.0
+// ==========================================
 
-const calculateButton = document.getElementById("calculateButton");
+// НДС
 
-calculateButton.addEventListener("click", function () {
+function toolVAT() {
+    run(() => {
+        const [amount, rate] = numbers();
 
-    const numberValue =
-        document.getElementById("numberInput").value;
+        if (amount < 0 || rate < 0 || rate > 100) {
+            throw new Error("Проверьте сумму и ставку");
+        }
 
-    const percentValue =
-        document.getElementById("percentInput").value;
+        const vat = amount * rate / 100;
+        const total = amount + vat;
 
-    const resultElement =
-        document.getElementById("percentResult");
+        show(
+            "НДС: " + vat.toFixed(2) + " ₽\n" +
+            "Сумма с НДС: " + total.toFixed(2) + " ₽"
+        );
+    });
+}
 
-    if (numberValue.trim() === "" ||
-        percentValue.trim() === "") {
+// Сортировка строк
 
-        resultElement.textContent =
-            "Введите число и процент";
+function toolSort() {
+    const lines = val("text").split(/\r?\n/);
 
-        return;
-    }
+    lines.sort((a, b) =>
+        a.localeCompare(b, "ru")
+    );
 
-    const number = Number(numberValue);
-    const percent = Number(percentValue);
+    show(lines.join("\n"));
+}
 
-    if (!Number.isFinite(number) ||
-        !Number.isFinite(percent)) {
+// Переворот текста
 
-        resultElement.textContent =
-            "Введите корректные числа";
+function toolReverse() {
+    show(
+        Array.from(val("text")).reverse().join("")
+    );
+}
 
-        return;
-    }
+// Поиск и замена
 
-    const result = number * percent / 100;
+function toolReplace() {
+    run(() => {
+        const text = val("text");
+        const find = val("find");
+        const replacement = val("replace");
 
-    resultElement.textContent =
-        "Результат: " +
-        result.toLocaleString("ru-RU", {
-            maximumFractionDigits: 10
-        });
+        if (!find) {
+            throw new Error("Введите текст для поиска");
+        }
 
-});
+        show(text.replaceAll(find, replacement));
+    });
+}
+
+// Генератор UUID
+
+function toolUUID() {
+    run(() => {
+        if (!crypto.randomUUID) {
+            throw new Error(
+                "UUID недоступен в этом браузере. " +
+                "Откройте сайт через HTTPS."
+            );
+        }
+
+        show(crypto.randomUUID());
+    });
+}
+
+// URL-кодирование
+
+function toolURLEncode() {
+    show(encodeURIComponent(val("text")));
+}
+
+function toolURLDecode() {
+    run(() => {
+        show(decodeURIComponent(val("text")));
+    });
+}
+
+// HTML-экранирование
+
+function toolHTMLEncode() {
+    const text = val("text");
+
+    const encoded = text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+
+    show(encoded);
+}
+
+// HTML-декодирование
+
+function toolHTMLDecode() {
+    const textarea = document.createElement("textarea");
+
+    textarea.innerHTML = val("text");
+
+    show(textarea.value);
+}
+
+// Генератор UTM
+
+function toolUTM() {
+    run(() => {
+        const address = val("utmUrl").trim();
+
+        if (!address) {
+            throw new Error("Введите адрес сайта");
+        }
+
+        const url = new URL(address);
+
+        if (!["http:", "https:"].includes(url.protocol)) {
+            throw new Error("Используйте http или https");
+        }
+
+        const source = val("utmSource").trim();
+        const medium = val("utmMedium").trim();
+        const campaign = val("utmCampaign").trim();
+
+        if (!source || !medium || !campaign) {
+            throw new Error("Заполните все UTM-поля");
+        }
+
+        url.searchParams.set("utm_source", source);
+        url.searchParams.set("utm_medium", medium);
+        url.searchParams.set("utm_campaign", campaign);
+
+        show(url.toString());
+    });
+}
+
