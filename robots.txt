@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://denwot434536.github.io/web-tools/sitemap.xml
