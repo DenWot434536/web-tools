@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Конвертер изображений JPG, PNG, WebP — ToolBox</title>
+
+<meta name="description"
+content="Бесплатный онлайн-конвертер изображений. Преобразуйте JPG, PNG и WebP прямо в браузере без регистрации.">
+
+<link rel="stylesheet" href="../style.css">
+
+<style>
+
+.converter-container {
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 25px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.converter-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 30px;
+    box-shadow: var(--shadow);
+}
+
+.upload-box {
+    border: 2px dashed var(--primary);
+    border-radius: 15px;
+    padding: 35px 20px;
+    text-align: center;
+    background: var(--background);
+}
+
+.upload-box h3 {
+    margin-bottom: 10px;
+}
+
+.upload-box p {
+    color: var(--muted);
+}
+
+.upload-box input {
+    max-width: 100%;
+    margin-top: 15px;
+}
+
+.image-preview {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.image-preview img {
+    display: block;
+    max-width: 100%;
+    max-height: 350px;
+    margin: 15px auto;
+    border-radius: 12px;
+}
+
+.converter-settings {
+    margin-top: 25px;
+}
+
+.converter-settings label {
+    display: block;
+    margin: 18px 0 8px;
+    font-weight: bold;
+}
+
+.converter-settings select,
+.converter-settings input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--background);
+    color: var(--text);
+}
+
+.converter-settings input[type="range"] {
+    padding: 0;
+}
+
+.download-link {
+    display: inline-block;
+    background: #16a34a;
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.download-link:hover {
+    background: #15803d;
+}
+
+.file-details {
+    background: var(--background);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    line-height: 1.8;
+}
+
+.converter-info {
+    margin-top: 50px;
+    line-height: 1.8;
+}
+
+.converter-info p {
+    color: var(--muted);
+}
+
+.status-message {
+    margin-top: 20px;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    .converter-box {
+        padding: 20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-content">
+
+        <a href="../index.html" class="logo">
+            🧰 ToolBox
+        </a>
+
+        <button
+            id="themeToggle"
+            class="theme-button"
+            type="button"
+            aria-label="Переключить тему"
+        >
+            🌙
+        </button>
+
+    </div>
+</header>
+
+<main class="converter-container">
+
+<a href="../index.html" class="back-link">
+    ← Вернуться ко всем инструментам
+</a>
+
+<h1>🔄 Конвертер изображений онлайн</h1>
+
+<p>
+    Преобразуйте изображения JPG, PNG и WebP
+    бесплатно и без регистрации.
+</p>
+
+<div class="converter-box">
+
+    <div class="upload-box">
+
+        <h3>📤 Загрузите изображение</h3>
+
+        <p>Поддерживаются JPG, PNG и WebP</p>
+
+        <input
+            type="file"
+            id="imageInput"
+            accept="image/jpeg,image/png,image/webp"
+            aria-label="Выберите изображение"
+        >
+
+    </div>
+
+    <div class="image-preview" id="originalPreview" hidden>
+
+        <h3>Исходное изображение</h3>
+
+        <img id="originalImage" alt="Исходное изображение">
+
+        <p id="originalInfo"></p>
+
+    </div>
+
+    <div class="converter-settings" id="settings" hidden>
+
+        <label for="formatSelect">
+            Выберите формат:
+        </label>
+
+        <select id="formatSelect">
+            <option value="image/jpeg">JPG</option>
+            <option value="image/png">PNG</option>
+            <option value="image/webp">WebP</option>
+        </select>
+
+        <div id="qualityContainer">
+
+            <label for="qualityRange">
+                Качество:
+                <span id="qualityValue">85%</span>
+            </label>
+
+            <input
+                type="range"
+                id="qualityRange"
+                min="10"
+                max="100"
+                value="85"
+            >
+
+        </div>
+
+        <button
+            class="primary-button"
+            id="convertButton"
+            type="button"
+        >
+            🔄 Конвертировать изображение
+        </button>
+
+    </div>
+
+    <div class="image-preview" id="resultPreview" hidden>
+
+        <h3>✅ Готовое изображение</h3>
+
+        <img id="resultImage" alt="Результат конвертации">
+
+        <div class="file-details">
+            <div id="resultInfo"></div>
+        </div>
+
+        <a
+            id="downloadButton"
+            class="download-link"
+            download
+        >
+            ⬇️ Скачать изображение
+        </a>
+
+    </div>
+
+    <p id="statusMessage"
+       class="status-message"
+       role="status"
+       aria-live="polite"></p>
+
+</div>
+
+<section class="converter-info">
+
+    <h2>Как конвертировать изображение?</h2>
+
+    <p>
+        Загрузите изображение с компьютера,
+        выберите необходимый формат и нажмите
+        кнопку «Конвертировать изображение».
+        После обработки скачайте готовый файл.
+    </p>
+
+    <h2>Какие форматы поддерживаются?</h2>
+
+    <p>
+        ToolBox поддерживает JPG, PNG и WebP.
+        Можно преобразовывать изображения
+        между этими форматами.
+    </p>
+
+    <h2>Что происходит с прозрачностью?</h2>
+
+    <p>
+        PNG и WebP могут сохранять прозрачные области.
+        Формат JPG прозрачность не поддерживает,
+        поэтому при конвертации в JPG
+        прозрачные участки заменяются белым фоном.
+    </p>
+
+    <h2>Безопасно ли конвертировать фотографии?</h2>
+
+    <p>
+        Обработка выполняется на вашем устройстве
+        средствами браузера. Фотографии не отправляются
+        на сервер ToolBox.
+    </p>
+
+</section>
+
+</main>
+
+<footer class="footer">
+    <div class="container">
+        © 2026 ToolBox — Бесплатные онлайн-инструменты
+    </div>
+</footer>
+
+<script>
+
+// ЭЛЕМЕНТЫ СТРАНИЦЫ
+
+const imageInput = document.getElementById("imageInput");
+
+const originalPreview = document.getElementById("originalPreview");
+const originalImage = document.getElementById("originalImage");
+const originalInfo = document.getElementById("originalInfo");
+
+const settings = document.getElementById("settings");
+
+const formatSelect = document.getElementById("formatSelect");
+const qualityContainer = document.getElementById("qualityContainer");
+const qualityRange = document.getElementById("qualityRange");
+const qualityValue = document.getElementById("qualityValue");
+
+const convertButton = document.getElementById("convertButton");
+
+const resultPreview = document.getElementById("resultPreview");
+const resultImage = document.getElementById("resultImage");
+const resultInfo = document.getElementById("resultInfo");
+
+const downloadButton = document.getElementById("downloadButton");
+const statusMessage = document.getElementById("statusMessage");
+
+const themeToggle = document.getElementById("themeToggle");
+
+let selectedFile = null;
+let originalUrl = null;
+let resultUrl = null;
+
+
+// СВЕТЛАЯ И ТЁМНАЯ ТЕМА
+
+try {
+    if (localStorage.getItem("toolbox-theme") === "dark") {
+        document.body.classList.add("dark");
+    }
+} catch (error) {
+    console.log("Настройки темы недоступны");
+}
+
+function updateTheme() {
+    const dark = document.body.classList.contains("dark");
+
+    themeToggle.textContent = dark ? "☀️" : "🌙";
+
+    themeToggle.setAttribute(
+        "aria-label",
+        dark ? "Включить светлую тему" : "Включить тёмную тему"
+    );
+}
+
+updateTheme();
+
+themeToggle.addEventListener("click", function() {
+
+    document.body.classList.toggle("dark");
+
+    try {
+        localStorage.setItem(
+            "toolbox-theme",
+            document.body.classList.contains("dark")
+                ? "dark"
+                : "light"
+        );
+    } catch (error) {
+        console.log("Не удалось сохранить тему");
+    }
+
+    updateTheme();
+
+});
+
+
+// ФОРМАТИРОВАНИЕ РАЗМЕРА ФАЙЛА
+
+function formatSize(bytes) {
+
+    if (bytes < 1024) {
+        return bytes + " Б";
+    }
+
+    if (bytes < 1024 * 1024) {
+        return (bytes / 1024).toFixed(1) + " КБ";
+    }
+
+    return (bytes / (1024 * 1024)).toFixed(2) + " МБ";
+
+}
+
+
+// ВЫБОР ИЗОБРАЖЕНИЯ
+
+imageInput.addEventListener("change", function() {
+
+    selectedFile = imageInput.files[0] || null;
+
+    originalPreview.hidden = true;
+    settings.hidden = true;
+    resultPreview.hidden = true;
+
+    statusMessage.textContent = "";
+
+    if (originalUrl) {
+        URL.revokeObjectURL(originalUrl);
+        originalUrl = null;
+    }
+
+    if (resultUrl) {
+        URL.revokeObjectURL(resultUrl);
+        resultUrl = null;
+    }
+
+    if (!selectedFile) {
+        return;
+    }
+
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+    if (!allowedTypes.includes(selectedFile.type)) {
+
+        selectedFile = null;
+
+        statusMessage.textContent =
+            "❌ Выберите изображение JPG, PNG или WebP.";
+
+        return;
+    }
+
+    originalUrl = URL.createObjectURL(selectedFile);
+
+    originalImage.src = originalUrl;
+
+    originalInfo.textContent =
+        "Размер файла: " + formatSize(selectedFile.size);
+
+    originalPreview.hidden = false;
+    settings.hidden = false;
+
+});
+
+
+// НАСТРОЙКА КАЧЕСТВА
+
+qualityRange.addEventListener("input", function() {
+
+    qualityValue.textContent = qualityRange.value + "%";
+
+});
+
+function updateQualityVisibility() {
+
+    qualityContainer.hidden =
+        formatSelect.value === "image/png";
+
+}
+
+formatSelect.addEventListener("change", function() {
+
+    updateQualityVisibility();
+
+    resultPreview.hidden = true;
+
+});
+
+updateQualityVisibility();
+
+
+// КОНВЕРТАЦИЯ
+
+convertButton.addEventListener("click", async function() {
+
+    if (!selectedFile || !originalUrl) {
+        return;
+    }
+
+    statusMessage.textContent = "⏳ Обработка изображения...";
+
+    resultPreview.hidden = true;
+
+    convertButton.disabled = true;
+
+    try {
+
+        const image = new Image();
+
+        await new Promise(function(resolve, reject) {
+
+            image.onload = resolve;
+            image.onerror = reject;
+
+            image.src = originalUrl;
+
+        });
+
+        const canvas = document.createElement("canvas");
+
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+
+        const ctx = canvas.getContext("2d");
+
+        if (!ctx) {
+            throw new Error("Canvas недоступен");
+        }
+
+        const format = formatSelect.value;
+
+        // JPG не поддерживает прозрачность
+        if (format === "image/jpeg") {
+
+            ctx.fillStyle = "#ffffff";
+
+            ctx.fillRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+        }
+
+        ctx.drawImage(image, 0, 0);
+
+        const quality = Number(qualityRange.value) / 100;
+
+        const blob = await new Promise(function(resolve) {
+
+            canvas.toBlob(
+                resolve,
+                format,
+                quality
+            );
+
+        });
+
+        if (!blob) {
+            throw new Error("Не удалось создать изображение");
+        }
+
+        // Проверяем фактический формат результата
+        if (blob.type !== format) {
+            throw new Error("Браузер не поддерживает выбранный формат");
+        }
+
+        if (resultUrl) {
+            URL.revokeObjectURL(resultUrl);
+        }
+
+        resultUrl = URL.createObjectURL(blob);
+
+        resultImage.src = resultUrl;
+
+        const extensions = {
+            "image/jpeg": "jpg",
+            "image/png": "png",
+            "image/webp": "webp"
+        };
+
+        const extension = extensions[format];
+
+        const fileName =
+            selectedFile.name.replace(/\.[^.]+$/, "");
+
+        downloadButton.href = resultUrl;
+
+        downloadButton.download =
+            fileName + "-toolbox." + extension;
+
+        const formatName = extension.toUpperCase();
+
+        resultInfo.textContent =
+            "Формат: " + formatName +
+            " | Размер: " + formatSize(blob.size);
+
+        resultPreview.hidden = false;
+
+        statusMessage.textContent =
+            "✅ Конвертация завершена!";
+
+    } catch (error) {
+
+        console.error(error);
+
+        statusMessage.textContent =
+            "❌ Не удалось конвертировать изображение. " +
+            "Попробуйте другой файл или формат.";
+
+    } finally {
+
+        convertButton.disabled = false;
+
+    }
+
+});
+
+
+// ОСВОБОЖДЕНИЕ ПАМЯТИ
+
+window.addEventListener("pagehide", function() {
+
+    if (originalUrl) {
+        URL.revokeObjectURL(originalUrl);
+    }
+
+    if (resultUrl) {
+        URL.revokeObjectURL(resultUrl);
+    }
+
+});
+
+</script>
+
+</body>
+</html>
