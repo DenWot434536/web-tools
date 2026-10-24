@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Сжать фото онлайн бесплатно — ToolBox</title>
+
+    <meta name="description"
+          content="Сжимайте фотографии онлайн бесплатно. Уменьшайте размер JPG и WebP без регистрации. Обработка прямо в браузере.">
+
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        .page-container {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .compress-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .upload-area {
+            border: 2px dashed var(--primary);
+            border-radius: 15px;
+            padding: 45px 20px;
+            text-align: center;
+            background: var(--background);
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-hover);
+        }
+
+        .upload-icon {
+            font-size: 50px;
+        }
+
+        .upload-area p {
+            color: var(--muted);
+        }
+
+        .settings {
+            margin-top: 30px;
+        }
+
+        .settings label {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .settings input {
+            width: 100%;
+        }
+
+        .preview {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .preview img {
+            max-width: 100%;
+            max-height: 350px;
+            border-radius: 12px;
+        }
+
+        .file-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--background);
+            border-radius: 12px;
+        }
+
+        .download-button {
+            display: inline-block;
+            background: #16a34a;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .download-button:hover {
+            background: #15803d;
+        }
+
+        .info-section {
+            margin-top: 50px;
+            line-height: 1.8;
+        }
+
+        .info-section h2 {
+            margin-top: 30px;
+        }
+
+        .info-section p {
+            color: var(--muted);
+        }
+
+        @media (max-width: 600px) {
+            .compress-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-content">
+
+        <a href="../index.html" class="logo">
+            🧰 ToolBox
+        </a>
+
+        <button
+            id="themeToggle"
+            class="theme-button"
+            type="button"
+            aria-label="Переключить тему"
+        >
+            🌙
+        </button>
+
+    </div>
+</header>
+
+<main class="page-container">
+
+    <a href="../index.html" class="back-link">
+        ← Вернуться ко всем инструментам
+    </a>
+
+    <h1>🖼️ Сжатие фото онлайн</h1>
+
+    <p>
+        Уменьшайте размер фотографий бесплатно.
+        Без регистрации и загрузки изображений на сервер.
+    </p>
+
+    <div class="compress-box">
+
+        <div class="upload-area" id="uploadArea">
+
+            <div class="upload-icon">📤</div>
+
+            <h3>Выберите фотографию</h3>
+
+            <p>Поддерживаются JPG, PNG и WebP</p>
+
+            <input
+                type="file"
+                id="imageInput"
+                accept="image/jpeg,image/png,image/webp"
+                aria-label="Выберите изображение"
+            >
+
+        </div>
+
+        <div class="settings" id="settings" hidden>
+
+            <label for="quality">
+                Качество изображения:
+                <span id="qualityValue">75%</span>
+            </label>
+
+            <input
+                type="range"
+                id="quality"
+                min="10"
+                max="100"
+                value="75"
+            >
+
+            <button class="primary-button" id="compressButton">
+                ⚡ Сжать изображение
+            </button>
+
+        </div>
+
+        <div class="preview" id="preview" hidden>
+
+            <h3>Готовое изображение</h3>
+
+            <img id="previewImage" alt="Сжатое изображение">
+
+            <div class="file-info">
+
+                <div>
+                    <strong>До:</strong>
+                    <span id="originalSize"></span>
+                </div>
+
+                <div>
+                    <strong>После:</strong>
+                    <span id="compressedSize"></span>
+                </div>
+
+                <div>
+                    <strong>Изменение:</strong>
+                    <span id="savedPercent"></span>
+                </div>
+
+            </div>
+
+            <a
+                id="downloadButton"
+                class="download-button"
+                download="toolbox-image.jpg"
+            >
+                ⬇️ Скачать изображение
+            </a>
+
+        </div>
+
+        <p id="errorMessage" class="result" role="status"></p>
+
+    </div>
+
+    <section class="info-section">
+
+        <h2>Как сжать фотографию?</h2>
+
+        <p>
+            Выберите изображение, настройте качество
+            и нажмите кнопку «Сжать изображение».
+            После обработки скачайте готовый файл.
+        </p>
+
+        <h2>Безопасно ли это?</h2>
+
+        <p>
+            Обработка происходит непосредственно
+            в вашем браузере. Фотография не отправляется
+            на сервер ToolBox.
+        </p>
+
+        <h2>Какие форматы поддерживаются?</h2>
+
+        <p>
+            Можно выбрать JPG, PNG или WebP.
+            Результат сохраняется в формате JPEG.
+            Прозрачные области PNG и WebP заменяются белым фоном.
+        </p>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container">
+        © 2026 ToolBox — Бесплатные онлайн-инструменты
+    </div>
+</footer>
+
+<script>
+const imageInput = document.getElementById("imageInput");
+const settings = document.getElementById("settings");
+const quality = document.getElementById("quality");
+const qualityValue = document.getElementById("qualityValue");
+const compressButton = document.getElementById("compressButton");
+const preview = document.getElementById("preview");
+const previewImage = document.getElementById("previewImage");
+const originalSize = document.getElementById("originalSize");
+const compressedSize = document.getElementById("compressedSize");
+const savedPercent = document.getElementById("savedPercent");
+const downloadButton = document.getElementById("downloadButton");
+const errorMessage = document.getElementById("errorMessage");
+const themeToggle = document.getElementById("themeToggle");
+
+let selectedFile = null;
+let resultUrl = null;
+
+// Переключение темы
+try {
+    if (localStorage.getItem("toolbox-theme") === "dark") {
+        document.body.classList.add("dark");
+    }
+} catch (error) {
+    console.log("Настройки темы недоступны");
+}
+
+function updateThemeIcon() {
+    const dark = document.body.classList.contains("dark");
+    themeToggle.textContent = dark ? "☀️" : "🌙";
+    themeToggle.setAttribute(
+        "aria-label",
+        dark ? "Включить светлую тему" : "Включить тёмную тему"
+    );
+}
+
+updateThemeIcon();
+
+themeToggle.addEventListener("click", function() {
+    document.body.classList.toggle("dark");
+
+    try {
+        localStorage.setItem(
+            "toolbox-theme",
+            document.body.classList.contains("dark") ? "dark" : "light"
+        );
+    } catch (error) {
+        console.log("Не удалось сохранить тему");
+    }
+
+    updateThemeIcon();
+});
+
+// Обновление качества
+quality.addEventListener("input", function() {
+    qualityValue.textContent = quality.value + "%";
+});
+
+// Выбор изображения
+imageInput.addEventListener("change", function() {
+
+    selectedFile = imageInput.files[0] || null;
+
+    settings.hidden = true;
+    preview.hidden = true;
+    errorMessage.textContent = "";
+
+    if (resultUrl) {
+        URL.revokeObjectURL(resultUrl);
+        resultUrl = null;
+    }
+
+    if (!selectedFile) {
+        return;
+    }
+
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+    if (!allowedTypes.includes(selectedFile.type)) {
+        selectedFile = null;
+        errorMessage.textContent = "Выберите JPG, PNG или WebP.";
+        return;
+    }
+
+    settings.hidden = false;
+});
+
+// Форматирование размера файла
+function formatSize(bytes) {
+    if (bytes < 1024) {
+        return bytes + " Б";
+    }
+
+    if (bytes < 1024 * 1024) {
+        return (bytes / 1024).toFixed(1) + " КБ";
+    }
+
+    return (bytes / (1024 * 1024)).toFixed(2) + " МБ";
+}
+
+// Сжатие изображения
+compressButton.addEventListener("click", async function() {
+
+    if (!selectedFile) {
+        return;
+    }
+
+    errorMessage.textContent = "";
+    preview.hidden = true;
+    compressButton.disabled = true;
+    compressButton.textContent = "Обработка...";
+
+    let sourceUrl = null;
+
+    try {
+        sourceUrl = URL.createObjectURL(selectedFile);
+
+        const image = new Image();
+
+        await new Promise(function(resolve, reject) {
+            image.onload = resolve;
+            image.onerror = reject;
+            image.src = sourceUrl;
+        });
+
+        const canvas = document.createElement("canvas");
+
+        // Ограничиваем максимальную сторону изображения
+        // для уменьшения расхода памяти.
+        const maxSide = 3000;
+        const scale = Math.min(
+            1,
+            maxSide / Math.max(image.width, image.height)
+        );
+
+        canvas.width = Math.max(1, Math.round(image.width * scale));
+        canvas.height = Math.max(1, Math.round(image.height * scale));
+
+        const ctx = canvas.getContext("2d");
+
+        if (!ctx) {
+            throw new Error("Не удалось создать canvas");
+        }
+
+        // Белый фон для прозрачных изображений
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        const blob = await new Promise(function(resolve) {
+            canvas.toBlob(
+                resolve,
+                "image/jpeg",
+                Number(quality.value) / 100
+            );
+        });
+
+        if (!blob) {
+            throw new Error("Не удалось обработать изображение");
+        }
+
+        if (resultUrl) {
+            URL.revokeObjectURL(resultUrl);
+        }
+
+        resultUrl = URL.createObjectURL(blob);
+
+        previewImage.src = resultUrl;
+        downloadButton.href = resultUrl;
+
+        const baseName = selectedFile.name.replace(/\.[^.]+$/, "");
+        downloadButton.download = baseName + "-toolbox.jpg";
+
+        originalSize.textContent = formatSize(selectedFile.size);
+        compressedSize.textContent = formatSize(blob.size);
+
+        const difference =
+            (1 - blob.size / selectedFile.size) * 100;
+
+        if (difference >= 0) {
+            savedPercent.textContent =
+                "Меньше на " + difference.toFixed(1) + "%";
+        } else {
+            savedPercent.textContent =
+                "Больше на " + Math.abs(difference).toFixed(1) + "%";
+        }
+
+        preview.hidden = false;
+
+    } catch (error) {
+        console.error(error);
+        errorMessage.textContent =
+            "Не удалось обработать файл. Попробуйте другое изображение.";
+    } finally {
+        if (sourceUrl) {
+            URL.revokeObjectURL(sourceUrl);
+        }
+
+        compressButton.disabled = false;
+        compressButton.textContent = "⚡ Сжать изображение";
+    }
+});
+
+// Освобождаем память при закрытии страницы
+window.addEventListener("pagehide", function() {
+    if (resultUrl) {
+        URL.revokeObjectURL(resultUrl);
+    }
+});
+</script>
+
+</body>
+</html>
