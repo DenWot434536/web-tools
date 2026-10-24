@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Инструменты Онлайн — Бесплатные сервисы</title>
+
+<meta name="description" content="Бесплатные онлайн-инструменты: генератор паролей, калькулятор процентов, счётчик символов и другие полезные сервисы.">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+}
+
+header {
+    padding: 25px;
+    text-align: center;
+    background: #1e293b;
+}
+
+header h1 {
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #cbd5e1;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+.search {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background: #334155;
+}
+
+.card h2 {
+    color: #38bdf8;
+}
+
+button {
+    background: #0ea5e9;
+    border: none;
+    padding: 12px 18px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #0284c7;
+}
+
+textarea, input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 10px;
+}
+
+.result {
+    margin-top: 15px;
+    color: #4ade80;
+    overflow-wrap: anywhere;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 50px;
+    background: #1e293b;
+    color: #94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>⚡ Инструменты Онлайн</h1>
+    <p>Бесплатные полезные инструменты на каждый день</p>
+</header>
+
+<div class="container">
+
+<input
+    type="text"
+    class="search"
+    id="search"
+    placeholder="🔍 Найти инструмент..."
+    oninput="searchTools()"
+    aria-label="Поиск инструментов"
+>
+
+<div class="grid">
+
+<div class="card">
+    <h2>🔐 Генератор паролей</h2>
+    <p>Создавайте надёжные случайные пароли.</p>
+
+    <button onclick="generatePassword()">Создать пароль</button>
+
+    <div class="result" id="passwordResult"></div>
+</div>
+
+<div class="card">
+    <h2>📝 Счётчик символов</h2>
+    <p>Узнайте количество символов и слов.</p>
+
+    <textarea
+        id="textInput"
+        rows="5"
+        placeholder="Введите текст..."
+        oninput="countText()"
+    ></textarea>
+
+    <div class="result" id="textResult">
+        Символов: 0 | Слов: 0
+    </div>
+</div>
+
+<div class="card">
+    <h2>🧮 Калькулятор процентов</h2>
+    <p>Вычислите процент от числа.</p>
+
+    <input
+        type="number"
+        id="number"
+        placeholder="Введите число"
+    >
+
+    <input
+        type="number"
+        id="percent"
+        placeholder="Введите процент"
+    >
+
+    <button onclick="calculatePercent()">Рассчитать</button>
+
+    <div class="result" id="percentResult"></div>
+</div>
+
+</div>
+</div>
+
+<footer>
+    © 2026 Инструменты Онлайн
+    <br>
+    Бесплатные онлайн-сервисы
+</footer>
+
+<script>
+
+function generatePassword() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+    let password = "";
+
+    const randomValues = new Uint32Array(16);
+    crypto.getRandomValues(randomValues);
+
+    for (let i = 0; i < 16; i++) {
+        password += chars[randomValues[i] % chars.length];
+    }
+
+    document.getElementById("passwordResult").textContent = password;
+}
+
+function countText() {
+    const text = document.getElementById("textInput").value;
+
+    const characters = text.length;
+    const words = text.trim() === ""
+        ? 0
+        : text.trim().split(/\s+/).length;
+
+    document.getElementById("textResult").textContent =
+        "Символов: " + characters + " | Слов: " + words;
+}
+
+function calculatePercent() {
+    const numberInput = document.getElementById("number").value;
+    const percentInput = document.getElementById("percent").value;
+    const result = document.getElementById("percentResult");
+
+    if (numberInput.trim() === "" || percentInput.trim() === "") {
+        result.textContent = "Введите число и процент";
+        return;
+    }
+
+    const number = Number(numberInput);
+    const percent = Number(percentInput);
+
+    if (!Number.isFinite(number) || !Number.isFinite(percent)) {
+        result.textContent = "Введите корректные числа";
+        return;
+    }
+
+    const answer = (number * percent) / 100;
+
+    result.textContent = "Результат: " + answer.toLocaleString("ru-RU");
+}
+
+function searchTools() {
+    const search = document.getElementById("search").value.toLowerCase();
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+
+        card.style.display = text.includes(search) ? "" : "none";
+    });
+}
+
+</script>
+
+</body>
+</html>
