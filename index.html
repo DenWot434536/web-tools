@@ -1,254 +1,306 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Инструменты Онлайн — Бесплатные сервисы</title>
+    <title>ToolBox — Бесплатные онлайн-инструменты</title>
 
-<meta name="description" content="Бесплатные онлайн-инструменты: генератор паролей, калькулятор процентов, счётчик символов и другие полезные сервисы.">
+    <meta name="description"
+          content="ToolBox — бесплатные онлайн-инструменты для работы с текстом, изображениями и вычислениями.">
 
-<style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
-}
-
-header {
-    padding: 25px;
-    text-align: center;
-    background: #1e293b;
-}
-
-header h1 {
-    color: #38bdf8;
-    margin-bottom: 10px;
-}
-
-header p {
-    color: #cbd5e1;
-}
-
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 30px 20px;
-}
-
-.search {
-    width: 100%;
-    padding: 15px;
-    border-radius: 10px;
-    border: none;
-    font-size: 16px;
-    margin-bottom: 30px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-}
-
-.card {
-    background: #1e293b;
-    padding: 25px;
-    border-radius: 15px;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    background: #334155;
-}
-
-.card h2 {
-    color: #38bdf8;
-}
-
-button {
-    background: #0ea5e9;
-    border: none;
-    padding: 12px 18px;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: #0284c7;
-}
-
-textarea, input[type="number"] {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    margin-top: 10px;
-}
-
-.result {
-    margin-top: 15px;
-    color: #4ade80;
-    overflow-wrap: anywhere;
-}
-
-footer {
-    text-align: center;
-    padding: 25px;
-    margin-top: 50px;
-    background: #1e293b;
-    color: #94a3b8;
-}
-</style>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
 
-<header>
-    <h1>⚡ Инструменты Онлайн</h1>
-    <p>Бесплатные полезные инструменты на каждый день</p>
+<header class="header">
+    <div class="container header-content">
+
+        <a href="index.html" class="logo">
+            <span>🧰</span> ToolBox
+        </a>
+
+        <div class="header-right">
+            <span class="header-label">Бесплатные инструменты</span>
+
+            <button
+                id="themeToggle"
+                class="theme-button"
+                aria-label="Переключить тему"
+                type="button"
+            >
+                🌙
+            </button>
+        </div>
+
+    </div>
 </header>
 
-<div class="container">
+<main>
 
-<input
-    type="text"
-    class="search"
-    id="search"
-    placeholder="🔍 Найти инструмент..."
-    oninput="searchTools()"
-    aria-label="Поиск инструментов"
->
+    <section class="hero">
+        <div class="container">
 
-<div class="grid">
+            <div class="badge">
+                ⚡ Быстро. Бесплатно. Удобно.
+            </div>
 
-<div class="card">
-    <h2>🔐 Генератор паролей</h2>
-    <p>Создавайте надёжные случайные пароли.</p>
+            <h1>
+                Все нужные инструменты
+                <span>в одном месте</span>
+            </h1>
 
-    <button onclick="generatePassword()">Создать пароль</button>
+            <p class="hero-description">
+                ToolBox — бесплатные онлайн-сервисы для работы,
+                учёбы и повседневных задач.
+                Без регистрации и лишних сложностей.
+            </p>
 
-    <div class="result" id="passwordResult"></div>
-</div>
+            <div class="search-box">
+                <span>🔍</span>
 
-<div class="card">
-    <h2>📝 Счётчик символов</h2>
-    <p>Узнайте количество символов и слов.</p>
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Какой инструмент ищем?"
+                    aria-label="Поиск инструментов"
+                >
+            </div>
 
-    <textarea
-        id="textInput"
-        rows="5"
-        placeholder="Введите текст..."
-        oninput="countText()"
-    ></textarea>
+            <div class="hero-stats">
+                <span>✅ Бесплатно</span>
+                <span>⚡ Быстрая работа</span>
+                <span>🔒 Без регистрации</span>
+            </div>
 
-    <div class="result" id="textResult">
-        Символов: 0 | Слов: 0
+        </div>
+    </section>
+
+    <section class="tools-section" id="tools">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Наши инструменты</h2>
+                    <p>Выбирай нужный и приступай к работе</p>
+                </div>
+            </div>
+
+            <div class="categories">
+<button class="category" data-category="image">
+    🖼️ Изображения
+</button>
+                <button class="category active" data-category="all">
+                    ✨ Все
+                </button>
+
+                <button class="category" data-category="text">
+                    📝 Текст
+                </button>
+
+                <button class="category" data-category="calculator">
+                    🧮 Калькуляторы
+                </button>
+
+                <button class="category" data-category="generator">
+                    🔐 Генераторы
+                </button>
+
+            </div>
+
+            <div class="tools-grid">
+<article class="tool-card" data-category="image">
+
+    <div class="tool-icon blue">🖼️</div>
+
+    <h3>Сжатие фото онлайн</h3>
+
+    <p>
+        Уменьшайте размер фотографий JPG, PNG и WebP.
+        Быстро и бесплатно.
+    </p>
+
+    <a href="tools/compress-image.html"
+       class="primary-button tool-link">
+        Открыть инструмент →
+    </a>
+
+</article>
+                <article class="tool-card" data-category="generator">
+
+                    <div class="tool-icon purple">🔐</div>
+
+                    <h3>Генератор паролей</h3>
+
+                    <p>
+                        Создавайте случайные пароли для защиты аккаунтов.
+                    </p>
+
+                    <div class="tool-content">
+
+                        <label for="passwordLength">
+                            Длина пароля:
+                        </label>
+
+                        <select id="passwordLength">
+                            <option value="12">12 символов</option>
+                            <option value="16" selected>16 символов</option>
+                            <option value="24">24 символа</option>
+                            <option value="32">32 символа</option>
+                        </select>
+
+                        <button class="primary-button"
+                                id="generatePasswordButton">
+                            Создать пароль
+                        </button>
+
+                        <div class="result" id="passwordResult"
+                             aria-live="polite"></div>
+
+                    </div>
+
+                </article>
+
+                <article class="tool-card" data-category="text">
+
+                    <div class="tool-icon blue">📝</div>
+
+                    <h3>Счётчик символов</h3>
+
+                    <p>
+                        Узнайте количество символов и слов в тексте.
+                    </p>
+
+                    <div class="tool-content">
+
+                        <label for="textInput">
+                            Введите текст:
+                        </label>
+
+                        <textarea
+                            id="textInput"
+                            rows="4"
+                            placeholder="Начните печатать..."
+                        ></textarea>
+
+                        <div class="result" id="textResult"
+                             aria-live="polite">
+                            Символов: 0 | Слов: 0
+                        </div>
+
+                    </div>
+
+                </article>
+
+                <article class="tool-card" data-category="calculator">
+
+                    <div class="tool-icon green">🧮</div>
+
+                    <h3>Калькулятор процентов</h3>
+
+                    <p>
+                        Быстро вычислите процент от любого числа.
+                    </p>
+
+                    <div class="tool-content">
+
+                        <label for="numberInput">
+                            Число:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="numberInput"
+                            placeholder="Например, 1000"
+                        >
+
+                        <label for="percentInput">
+                            Процент:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="percentInput"
+                            placeholder="Например, 15"
+                        >
+
+                        <button class="primary-button"
+                                id="calculateButton">
+                            Рассчитать
+                        </button>
+
+                        <div class="result" id="percentResult"
+                             aria-live="polite"></div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+            <p id="noResults" class="no-results" hidden>
+                😕 Инструменты не найдены. Попробуйте другой запрос.
+            </p>
+
+        </div>
+    </section>
+
+    <section class="about-section">
+
+        <div class="container">
+
+            <h2>Почему ToolBox?</h2>
+
+            <div class="features">
+
+                <div class="feature">
+                    <span>⚡</span>
+                    <h3>Быстро</h3>
+                    <p>Инструменты работают прямо в браузере.</p>
+                </div>
+
+                <div class="feature">
+                    <span>🔒</span>
+                    <h3>Конфиденциально</h3>
+                    <p>Введённые данные обрабатываются на вашем устройстве.</p>
+                </div>
+
+                <div class="feature">
+                    <span>💎</span>
+                    <h3>Бесплатно</h3>
+                    <p>Пользуйтесь инструментами без оплаты.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-content">
+            <div>
+                <strong>🧰 ToolBox</strong>
+                <p>Полезные инструменты на каждый день.</p>
+            </div>
+
+            <div>
+                © 2026 ToolBox
+            </div>
+        </div>
+
     </div>
-</div>
 
-<div class="card">
-    <h2>🧮 Калькулятор процентов</h2>
-    <p>Вычислите процент от числа.</p>
-
-    <input
-        type="number"
-        id="number"
-        placeholder="Введите число"
-    >
-
-    <input
-        type="number"
-        id="percent"
-        placeholder="Введите процент"
-    >
-
-    <button onclick="calculatePercent()">Рассчитать</button>
-
-    <div class="result" id="percentResult"></div>
-</div>
-
-</div>
-</div>
-
-<footer>
-    © 2026 Инструменты Онлайн
-    <br>
-    Бесплатные онлайн-сервисы
 </footer>
-
-<script>
-
-function generatePassword() {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-    let password = "";
-
-    const randomValues = new Uint32Array(16);
-    crypto.getRandomValues(randomValues);
-
-    for (let i = 0; i < 16; i++) {
-        password += chars[randomValues[i] % chars.length];
-    }
-
-    document.getElementById("passwordResult").textContent = password;
-}
-
-function countText() {
-    const text = document.getElementById("textInput").value;
-
-    const characters = text.length;
-    const words = text.trim() === ""
-        ? 0
-        : text.trim().split(/\s+/).length;
-
-    document.getElementById("textResult").textContent =
-        "Символов: " + characters + " | Слов: " + words;
-}
-
-function calculatePercent() {
-    const numberInput = document.getElementById("number").value;
-    const percentInput = document.getElementById("percent").value;
-    const result = document.getElementById("percentResult");
-
-    if (numberInput.trim() === "" || percentInput.trim() === "") {
-        result.textContent = "Введите число и процент";
-        return;
-    }
-
-    const number = Number(numberInput);
-    const percent = Number(percentInput);
-
-    if (!Number.isFinite(number) || !Number.isFinite(percent)) {
-        result.textContent = "Введите корректные числа";
-        return;
-    }
-
-    const answer = (number * percent) / 100;
-
-    result.textContent = "Результат: " + answer.toLocaleString("ru-RU");
-}
-
-function searchTools() {
-    const search = document.getElementById("search").value.toLowerCase();
-
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach(card => {
-        const text = card.textContent.toLowerCase();
-
-        card.style.display = text.includes(search) ? "" : "none";
-    });
-}
-
-</script>
 
 </body>
 </html>
